@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <main class="find-room8-container">
+    <h1>Find a Room8!</h1>
+    <p class="form-description">Answer a few quick questions to find your ideal roommate match.</p>
+
+    <form id="room8Form" action="/find_room8" method="post">
+      
+      <!-- Question 1 -->
+      <div class="form-group">
+        <label for="question1">1. What type of living space do you prefer?</label>
+        <select id="question1" name="question1" required>
+          <option value="">Select an option</option>
+          <option value="studio">Studio Apartment</option>
+          <option value="1_bed">1 Bedroom</option>
+          <option value="2_bed">2+ Bedrooms</option>
+          <option value="shared_house">Shared House</option>
+        </select>
+      </div>
+
+      <!-- Question 2 -->
+      <div class="form-group">
+        <label for="question2">2. How often do you clean or tidy up?</label>
+        <select id="question2" name="question2" required>
+          <option value="">Select an option</option>
+          <option value="daily">Daily</option>
+          <option value="few_times">A few times a week</option>
+          <option value="weekly">Weekly</option>
+          <option value="rarely">Rarely</option>
+        </select>
+      </div>
+
+      <!-- Question 3 -->
+      <div class="form-group">
+        <label for="question3">3. How would you prefer to manage household expenses?</label>
+        <select id="question3" name="question3" required>
+          <option value="">Select an option</option>
+          <option value="split">Split evenly</option>
+          <option value="income_based">Based on income</option>
+          <option value="mixed">Mixed approach</option>
+        </select>
+      </div>
+
+      <!-- Question 4 -->
+      <div class="form-group">
+        <label for="question4">4. Do you have any dietary preferences or restrictions?</label>
+        <select id="question4" name="question4" required>
+          <option value="">Select an option</option>
+          <option value="none">None</option>
+          <option value="vegetarian">Vegetarian</option>
+          <option value="vegan">Vegan</option>
+          <option value="gluten_free">Gluten-Free</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <!-- Question 5 -->
+      <div class="form-group">
+        <label for="question5">5. How important is social interaction at home?</label>
+        <select id="question5" name="question5" required>
+          <option value="">Select an option</option>
+          <option value="very_important">Very Important</option>
+          <option value="somewhat">Somewhat Important</option>
+          <option value="not_important">Not Important</option>
+        </select>
+      </div>
+
+      <!-- Question 6 -->
+      <div class="form-group">
+        <label for="question6">6. What is your preference for noise and quiet time?</label>
+        <select id="question6" name="question6" required>
+          <option value="">Select an option</option>
+          <option value="quiet">Quiet</option>
+          <option value="moderate">Moderate</option>
+          <option value="lively">Lively</option>
+        </select>
+      </div>
+
+      <!-- Question 10 -->
+      <div class="form-group">
+        <label for="question10">10. Anything else we need to know?</label>
+        <textarea id="question10" name="question10" rows="3" placeholder="Share any additional info..."></textarea>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="submit-button">Submit Answers</button>
+    </form>
+
+    <!-- Toast Notification -->
+    <div id="toast">We'll get back to you shortly!</div>
+  </main>
+
+  <!-- JavaScript for Form Submission & Toast -->
+  <script>
+    document.getElementById("room8Form").addEventListener("submit", function(event) {
+      event.preventDefault();
+      
+      var button = document.querySelector(".submit-button");
+      button.classList.add("loading");
+
+      setTimeout(() => {
+        button.classList.remove("loading");
+        document.getElementById("toast").classList.add("show");
+
+        setTimeout(() => {
+          document.getElementById("toast").classList.remove("show");
+        }, 3000);
+      }, 2000); // Simulated form processing time
+    });
+  </script>
+
+{% endblock %}

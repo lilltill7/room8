@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <main>
+    <h1>Login</h1>
+    <form id="loginForm" action="{{ url_for('login') }}" method="post">
+      <div>
+        <label for="email">Enter your email address:</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" required>
+      </div>
+      <br>
+      <div>
+        <label for="password">Enter your password:</label>
+        <input type="password" id="password" name="password" placeholder="********" required>
+      </div>
+      <br>
+      <button type="submit">Login</button>
+    </form>
+
+    <!-- Show error messages -->
+    {% if message %}
+      <p style="color: red;">{{ message }}</p>
+    {% endif %}
+
+    <p>Don't have an account? <a href="{{ url_for('register') }}">Sign up here</a></p>
+    <!-- (Optional) Add password reset link -->
+    <p><a href="#">Forgot your password?</a></p>
+  </main>
+{% endblock %}
