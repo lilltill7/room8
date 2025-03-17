@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Room8</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Room8</title>
+    
+    <!-- Global Stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  
+    <!-- Conditionally Load Page-Specific Stylesheets -->
+    {% if request.endpoint == "how_it_works" %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/hiw.css') }}">
+    {% endif %}
+  </head>
 
+<body>
   <header>
     <nav class="navbar">
       <!-- Left: Transparent Logo -->
@@ -15,11 +22,6 @@
         <a href="{{ url_for('home') }}">
           <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Room8 Logo" class="logo">
         </a>
-      </div>
-  
-      <!-- Centered: Room8 Text Box -->
-      <div class="nav-center">
-        <h1>Room8</h1>
       </div>
   
       <!-- Right: Navigation Links -->
@@ -42,25 +44,11 @@
     </nav>
   </header>
   
+  <!-- Mobile Menu Button -->
+  <button class="menu-toggle" aria-label="Toggle navigation">
+    ☰
+  </button>
   
-
-      <!-- Mobile Menu Button -->
-      <button class="menu-toggle" aria-label="Toggle navigation">
-        ☰
-      </button>
-    </nav>
-  </header>
-
-  <!-- Hero Section -->
-  <section class="hero" style="background-image: url('{{ url_for('static', filename='images/hero-bg.jpg') }}');">
-    <div class="hero-content">
-      <h1>Find Your Perfect Roommate</h1>
-      <p class="tagline">Roommate compatibility made simple.</p>
-      <a href="{{ url_for('find_room8') }}" class="cta-button">Get Started</a>
-    </div>
-  </section>
-  
-
   <!-- Main Content -->
   <main>
     {% block content %}{% endblock %}

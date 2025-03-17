@@ -1,4 +1,6 @@
 from flask import Flask, render_template
+from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_from_directory
 
 app = Flask(__name__, static_folder='static')
 
@@ -14,6 +16,10 @@ def find_room8():
         # Demo: we don't process form data yet.
         pass
     return render_template("find_room8.html")
+
+@app.route('/static/images/<filename>')
+def get_image(filename):
+    return send_from_directory('static/images', filename)
 
 # Route for the Mission page.
 @app.route("/mission")
