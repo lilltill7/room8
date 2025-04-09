@@ -1,46 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Room8</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <style>
-    /* Remove underline from navbar links */
-    nav ul.nav-links li a {
-      text-decoration: none;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room8</title>
+    
+    <!-- Link to Global CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/purpose.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
+    
+    <!-- Smooth scroll behavior -->
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        section {
+            scroll-margin-top: 90px; /* prevents sections from hiding behind fixed navbar */
+        }
+    </style>
+    
+    {% block head %}{% endblock %}
 </head>
-<body>
-  <!-- Fixed Navbar -->
-  <header>
-    <nav>
-      <div class="logo">
-        <a href="/">Room8</a>
-      </div>
-      <!-- Updated navigation menu: Removed "Room8 Culture" and "Find a Roommate" -->
-      <ul class="nav-links">
-        <li><a href="/">Mission</a></li>
-        <li><a href="/how-it-works">How It Works</a></li>
-      </ul>
-      <!-- Join Room8 button remains the same -->
-      <div class="download">
-        <a href="/signup">Signup</a>
-      </div>
-    </nav>
-  </header>
-
-  <!-- Main content injected from child templates -->
-  <main>
-    {% block content %}{% endblock %}
-  </main>
-
-  <!-- Footer -->
-  <footer>
-    <div class="footer-content">
-      <p>&copy; 2025 Room8. Making homes through meaningful connections.</p>
-    </div>
-  </footer>
+<body class="{% block body_class %}{% endblock %}">
+    <header>
+        <nav class="navbar">
+            <!-- Left: Logo -->
+            <div class="nav-left">
+                <a href="{{ url_for('home') }}">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Room8 Logo" class="logo">
+                </a>
+            </div>
+            
+            <!-- Center: ROOM8 Text -->
+            <div class="nav-center">
+                ROOM8
+            </div>
+            
+            <!-- Right: Nav Links -->
+            <div class="nav-right">
+                <button class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="{{ url_for('home') }}#hero">Home</a></li>
+                    <li><a href="{{ url_for('home') }}#purpose">Mission</a></li>
+                    <li><a href="{{ url_for('home') }}#mission">How It Works</a></li>
+                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Room8. All rights reserved.</p>
+            <ul class="footer-links">
+                <li><a href="{{ url_for('home') }}#purpose">Mission</a></li>
+                <li><a href="{{ url_for('home') }}#mission">How It Works</a></li>
+                <li><a href="{{ url_for('find_room8') }}">Find Roommate</a></li>
+            </ul>
+        </div>
+    </footer>
+    
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/purpose.js') }}"></script>
+    {% block scripts %}{% endblock %}
 </body>
 </html>

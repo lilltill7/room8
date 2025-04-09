@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+
+{{ super() }}
+<style>
+  /* These styles only apply to the register page */
+  header {
+    background-color: white !important;
+  }
+  header .nav-links a, 
+  header .nav-center {
+    color: #333 !important;
+  }
+  .mobile-menu-btn span {
+    background-color: #333 !important;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="register-container">
+    <div class="register-header">
+        <h1>Create Your Room8 Account</h1>
+        <p>Join our community and find your perfect roommate!</p>
+    </div>
+    <form class="register-form" id="registerForm" method="POST" action="{{ url_for('register') }}">
+        <div class="form-group">
+            <label for="first_name">First Name</label>
+            <input type="text" id="first_name" name="first_name" required>
+            <div class="error-message"></div>
+        </div>
+        <div class="form-group">
+            <label for="last_name">Last Name</label>
+            <input type="text" id="last_name" name="last_name" required>
+            <div class="error-message"></div>
+        </div>
+        <div class="form-group full-width">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required>
+            <div class="error-message"></div>
+        </div>
+        <div class="form-group full-width">
+            <label for="password">Create a Password</label>
+            <input type="password" id="password" name="password" required>
+            <div class="error-message"></div>
+        </div>
+        <div class="form-group full-width">
+            <label for="confirm_password">Confirm Password</label>
+            <input type="password" id="confirm_password" name="confirm_password" required>
+            <div class="error-message"></div>
+        </div>
+        <button type="submit" class="submit-btn">Create Account</button>
+        <div class="login-link">
+            Already have an account? <a href="{{ url_for('login') }}">Log In</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/register.js') }}"></script>
+{% endblock %}

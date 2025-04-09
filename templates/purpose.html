@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/purpose.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Lora:wght@400;700&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block body_class %}purpose-page no-scroll{% endblock %}
+
+{% block content %}
+<div class="purpose-container">
+    <!-- Section 1: Problem Statement -->
+    <section class="purpose-section section-dark" id="section1">
+        <div class="section-content">
+            <h2 class="section-title">Our Purpose</h2>
+            <h3 class="section-subtitle">Roommate assignments are still stuck in the past</h3>
+            
+            <div class="animated-keywords">
+                <div class="keyword" data-delay="1">
+                    <span class="keyword-text">random</span>
+                </div>
+                <div class="keyword" data-delay="1.7">
+                    <span class="keyword-text">rushed</span>
+                </div>
+                <div class="keyword" data-delay="2.4">
+                    <span class="keyword-text">completely mismatched</span>
+                </div>
+            </div>
+            
+            <div class="scroll-indicator">
+                <span>Scroll Down</span>
+                <div class="scroll-arrow">↓</div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 2: Mission Statement -->
+    <section class="purpose-section section-light" id="section2">
+        <div class="section-content">
+            <h3 class="section-subtitle fade-in">We're changing that.</h3>
+            
+            <p class="section-text slide-in">
+                Room8 uses modern matchmaking technology to pair roommates based on lifestyle, 
+                habits, and preferences — creating harmonious living situations from day one.
+            </p>
+            
+            <div class="scroll-indicator">
+                <span>Continue</span>
+                <div class="scroll-arrow">↓</div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 3: Values -->
+    <section class="purpose-section section-purple" id="section3">
+        <div class="section-content">
+            <h3 class="section-subtitle scale-in">Our Values</h3>
+            
+            <div class="values-container">
+                <div class="value-item fade-in-up" data-delay="0.1">
+                    <div class="value-icon">🏠</div>
+                    <h4>Compatibility First</h4>
+                    <p>We prioritize meaningful compatibility over superficial connections.</p>
+                </div>
+                
+                <div class="value-item fade-in-up" data-delay="0.3">
+                    <div class="value-icon">🤝</div>
+                    <h4>Transparent Matching</h4>
+                    <p>Our process is clear and honest, with no hidden algorithms.</p>
+                </div>
+                
+                <div class="value-item fade-in-up" data-delay="0.5">
+                    <div class="value-icon">🛡️</div>
+                    <h4>Safety & Trust</h4>
+                    <p>Every profile is verified, creating a community of trust.</p>
+                </div>
+            </div>
+            
+            <div class="scroll-indicator">
+                <span>Almost there</span>
+                <div class="scroll-arrow">↓</div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 4: Call to Action -->
+    <section class="purpose-section section-gradient" id="section4">
+        <div class="section-content">
+            <h3 class="section-subtitle bounce-in">Ready to find your perfect Room8?</h3>
+            
+            <div class="cta-container">
+                <a href="{{ url_for('find_room8') }}" class="cta-button pulse">Find My Match</a>
+            </div>
+            
+            <p class="section-footer fade-in-up">
+                Join thousands of others who've found their ideal living situation through Room8.
+            </p>
+        </div>
+    </section>
+</div>
+
+<div class="page-navigation">
+    <div class="nav-dot" data-section="1"></div>
+    <div class="nav-dot" data-section="2"></div>
+    <div class="nav-dot" data-section="3"></div>
+    <div class="nav-dot" data-section="4"></div>
+</div>
+
+{% if request.endpoint == 'purpose' %}
+<div class="page-navigation">
+    <div class="nav-dot" data-section="1"></div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/purpose.js') }}"></script>
+{% endblock %}

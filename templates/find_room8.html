@@ -1,0 +1,244 @@
+{% extends "base.html" %}
+
+{% block body_class %}form-page{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <style>
+        /* Override navbar styles for form page */
+        header {
+            background: rgba(255, 255, 255, 0.95) !important;
+        }
+        .nav-center {
+            color: #333 !important;
+        }
+        .nav-links li a {
+            color: #333 !important;
+        }
+        .nav-links li a:hover {
+            background-color: rgba(0, 0, 0, 0.05) !important;
+        }
+        .mobile-menu-btn span {
+            background-color: #333 !important;
+        }
+        
+        /* Add some top padding to account for fixed navbar */
+        .form-section {
+            padding-top: 120px;
+            margin-top: 0;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+  <section class="form-section">
+    <div class="form-header">
+      <h2>Find Your Perfect Room8!</h2>
+      <p>Answer a few quick questions to help us match you with your ideal roommate. The more honest you are, the better your match will be!</p>
+    </div>
+    
+    <form id="room8Form" class="room8-form" action="/find_room8" method="post">
+      <!-- Lifestyle Section -->
+      <div class="form-divider">
+        <h3>Living Preferences</h3>
+      </div>
+      
+      <!-- Question 1 -->
+      <div class="form-group">
+        <label for="question1">What type of living space do you prefer?</label>
+        <div class="custom-select">
+          <select id="question1" name="question1" required>
+            <option value="">Select an option</option>
+            <option value="studio">Studio Apartment</option>
+            <option value="1_bed">1 Bedroom</option>
+            <option value="2_bed">2+ Bedrooms</option>
+            <option value="shared_house">Shared House</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Question 2 -->
+      <div class="form-group">
+        <label for="question2">How often do you clean or tidy up?</label>
+        <div class="custom-select">
+          <select id="question2" name="question2" required>
+            <option value="">Select an option</option>
+            <option value="daily">Daily</option>
+            <option value="few_times">A few times a week</option>
+            <option value="weekly">Weekly</option>
+            <option value="rarely">Rarely</option>
+          </select>
+        </div>
+      </div>
+      
+      <!-- Social & Comfort Section -->
+      <div class="form-divider">
+        <h3>Social Dynamics</h3>
+      </div>
+
+      <!-- Question 5 -->
+      <div class="form-group">
+        <label for="question5">How important is social interaction at home?</label>
+        <div class="custom-select">
+          <select id="question5" name="question5" required>
+            <option value="">Select an option</option>
+            <option value="very_important">Very Important</option>
+            <option value="somewhat">Somewhat Important</option>
+            <option value="not_important">Not Important</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Question 6 -->
+      <div class="form-group">
+        <label for="question6">What is your preference for noise and quiet time?</label>
+        <div class="custom-select">
+          <select id="question6" name="question6" required>
+            <option value="">Select an option</option>
+            <option value="quiet">Quiet</option>
+            <option value="moderate">Moderate</option>
+            <option value="lively">Lively</option>
+          </select>
+        </div>
+      </div>
+      
+      <!-- Practical Matters Section -->
+      <div class="form-divider">
+        <h3>Practical Matters</h3>
+      </div>
+
+      <!-- Question 3 -->
+      <div class="form-group">
+        <label for="question3">How would you prefer to manage household expenses?</label>
+        <div class="custom-select">
+          <select id="question3" name="question3" required>
+            <option value="">Select an option</option>
+            <option value="split">Split evenly</option>
+            <option value="income_based">Based on income</option>
+            <option value="mixed">Mixed approach</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Question 4 -->
+      <div class="form-group">
+        <label for="question4">Do you have any dietary preferences or restrictions?</label>
+        <div class="custom-select">
+          <select id="question4" name="question4" required>
+            <option value="">Select an option</option>
+            <option value="none">None</option>
+            <option value="vegetarian">Vegetarian</option>
+            <option value="vegan">Vegan</option>
+            <option value="gluten_free">Gluten-Free</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Additional Info Section -->
+      <div class="form-divider">
+        <h3>Additional Information</h3>
+      </div>
+
+      <!-- Question 10 -->
+      <div class="form-group-full">
+        <label for="question10">Anything else we need to know?</label>
+        <textarea id="question10" name="question10" rows="3" placeholder="Share your sleep schedule, pet preferences, hobbies, or any other aspects that matter to you..."></textarea>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="submit-btn">
+        <span class="btn-text">Find My Room8</span>
+        <span class="btn-loading"></span>
+      </button>
+    </form>
+
+    <!-- Success Message -->
+    <div class="form-success" id="form-success">
+      <div class="success-icon">✓</div>
+      <h3>Exciting news!</h3>
+      <p>Your preferences have been submitted. We're working on finding your perfect Room8 match!</p>
+    </div>
+  </section>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast">
+    <div class="toast-icon">✓</div>
+    <div class="toast-message">We'll get back to you shortly!</div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Force navbar to be in the scrolled state on this page
+      const header = document.querySelector('header');
+      if (header) {
+        header.classList.add('scrolled');
+      }
+      
+      // Add down arrow to custom select elements
+      const customSelects = document.querySelectorAll('.custom-select');
+      customSelects.forEach(select => {
+        if (!select.querySelector('.select-arrow')) {
+          const arrow = document.createElement('span');
+          arrow.className = 'select-arrow';
+          arrow.innerHTML = '▼';
+          select.appendChild(arrow);
+        }
+      });
+      
+      // Form submission handling
+      const room8Form = document.getElementById('room8Form');
+      const formSuccess = document.getElementById('form-success');
+      const toast = document.getElementById('toast');
+      
+      if (room8Form) {
+        room8Form.addEventListener("submit", function(event) {
+          event.preventDefault();
+          
+          // Simple validation
+          let isValid = true;
+          const requiredInputs = this.querySelectorAll('[required]');
+          
+          requiredInputs.forEach(input => {
+            if (!input.value.trim()) {
+              input.classList.add('invalid');
+              isValid = false;
+            } else {
+              input.classList.remove('invalid');
+            }
+          });
+          
+          if (!isValid) {
+            return;
+          }
+          
+          // Show loading button state
+          const button = document.querySelector(".submit-btn");
+          button.classList.add("loading");
+          
+          // Simulate form processing
+          setTimeout(() => {
+            button.classList.remove("loading");
+            
+            // Hide form and show success message
+            room8Form.style.display = 'none';
+            if (formSuccess) {
+              formSuccess.classList.add('visible');
+            }
+            
+            // Show toast notification
+            if (toast) {
+              toast.classList.add("show");
+              setTimeout(() => {
+                toast.classList.remove("show");
+              }, 3000);
+            }
+          }, 2000);
+        });
+      }
+    });
+  </script>
+{% endblock %}
